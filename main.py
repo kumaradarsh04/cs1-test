@@ -95,3 +95,7 @@ def admin_results(x_admin_password: str = Header("")):
     with connect() as conn, conn.cursor() as cur:
         cur.execute("select name, score, total_attempted from results order by name")
         return [{"name": n, "score": s, "total_attempted": t} for n, s, t in cur.fetchall()]
+
+@app.get("/health")
+def health():
+    return {"server-health": "Optimal"}
