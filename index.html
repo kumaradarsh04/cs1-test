@@ -51,7 +51,7 @@
 		}
 
 		main {
-			width: 400px;
+			width: 640px;
 			max-width: 640px;
 			background: var(--card);
 			border: 1px solid var(--line);
@@ -163,11 +163,11 @@
 
 		.q {
 			font-size: 1.2rem;
-			margin: 10px 0 16px
+			margin: 0px 0 16px
 		}
 
 		.bar {
-			height: 5px;
+			height: 2px;
 			background: var(--line);
 			border-radius: 3px;
 			overflow: hidden
@@ -241,7 +241,7 @@
 	<main id="test" hidden>
 		<div class="ui mut" id="who" style="font-size:.85rem"></div>
 		<div class="bar" style="margin:10px 0 4px"><i id="prog"></i></div>
-		<div class="ui mut" id="count" style="font-size:.85rem"></div>
+		<div class="ui mut" id="count" style="font-size:.85rem; margin-top: 15px"></div>
 		<div class="q" id="qtext"></div>
 		<div id="opts"></div>
 		<div class="err" id="testErr"></div>
@@ -319,7 +319,7 @@
 				if (!r.ok) throw new Error(d.detail || "Sign-in failed.");
 				token = resp.credential;
 				sel = {}; Object.entries(d.answers).forEach(([k, v]) => sel[k] = v);   // resume earlier answers
-				$("who").textContent = d.name + " · " + d.email;
+				$("who").textContent = d.name; // + " · " + d.email;
 				cur = 0; render(); show("test");
 			} catch (e) { $("loginErr").textContent = e.message; }
 		}
@@ -327,7 +327,7 @@
 		/* ======== TEST ======== */
 		function render() {
 			const q = QUESTIONS[cur], n = QUESTIONS.length;
-			$("count").textContent = `Question ${cur + 1} of ${n}`;
+			$("count").textContent = `Q${cur + 1} / ${n}`;
 			$("prog").style.width = ((cur + 1) / n * 100) + "%";
 			$("qtext").innerHTML = q.q;
 			$("opts").innerHTML = "";
