@@ -27,7 +27,7 @@ TOTAL = len(ANSWERS)
 app = FastAPI()
 app.add_middleware(CORSMiddleware,
                    allow_origins=os.getenv("ALLOWED_ORIGINS", "*").split(","),
-                   allow_methods=["*"], allow_headers=["*"])
+                   allow_methods=["*"], allow_headers=["*"], allow_credentials=True)
 
 UPSERT = """
 insert into results (email, name, answers, score, total_attempted, updated_at)
