@@ -3,3 +3,5 @@ uvicorn
 supabase
 google-auth
 requests
+psycopg
+dotenv
