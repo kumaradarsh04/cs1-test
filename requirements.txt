@@ -1,7 +1,6 @@
 fastapi
-supabase
+uvicorn
+psycopg2-binary
+python-dotenv
 google-auth
 requests
-psycopg2
-dotenv
-gunicorn
