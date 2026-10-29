@@ -5,3 +5,4 @@ google-auth
 requests
 psycopg
 dotenv
+gunicorn
