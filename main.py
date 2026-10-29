@@ -10,9 +10,9 @@ from pydantic import BaseModel
 from google.oauth2 import id_token
 from google.auth.transport import requests as greq
 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-load_dotenv()  # load .env file if present
+# load_dotenv()  # load .env file if present
 
 CLIENT_ID = os.environ["GOOGLE_CLIENT_ID"]
 DATABASE_URL = os.environ["DATABASE_URL"]
@@ -27,7 +27,7 @@ TOTAL = len(ANSWERS)
 app = FastAPI()
 app.add_middleware(CORSMiddleware,
                    allow_origins=os.getenv("ALLOWED_ORIGINS", "*").split(","),
-                   allow_methods=["*"], allow_headers=["*"], allow_credentials=True)
+                   allow_methods=["*"], allow_headers=["*"])
 
 UPSERT = """
 insert into results (email, name, answers, score, total_attempted, updated_at)
