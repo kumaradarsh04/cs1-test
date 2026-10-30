@@ -59,7 +59,7 @@ def verify(authorization: str):
 def auth(authorization: str = Header(...)):
     email, name = verify(authorization)
     with connect() as conn, conn.cursor() as cur:
-        cur.execute("select answers from results where email = %s ORDER BY name ASC", (email,))
+        cur.execute("select answers from results where email = %s", (email,))
         row = cur.fetchone()
         answers = row[0] if row else {}
         if not row:  # first visit -> create the row
@@ -94,7 +94,7 @@ def admin_results(x_admin_password: str = Header("")):
         raise HTTPException(401, "Wrong password.")
     with connect() as conn, conn.cursor() as cur:
         cur.execute("select name, score, total_attempted from results order by name")
-        return [{"name": n, "score": s, "total_attempted": t} for n, s, t in cur.fetchall()]
+        return [{"name": str(n).title(), "score": s, "total_attempted": t} for n, s, t in cur.fetchall()]
 
 @app.get("/health")
 def health():
