@@ -59,12 +59,12 @@ def verify(authorization: str):
 def auth(authorization: str = Header(...)):
     email, name = verify(authorization)
     with connect() as conn, conn.cursor() as cur:
-        cur.execute("select answers from results where email = %s", (email,))
+        cur.execute("select answers from results where email = %s ORDER BY name ASC", (email,))
         row = cur.fetchone()
         answers = row[0] if row else {}
         if not row:  # first visit -> create the row
             cur.execute(UPSERT, (email, name, Json({}), f"0/{TOTAL}", f"0/{TOTAL}"))
-    return {"name": name, "email": email, "total": TOTAL, "answers": answers}
+    return {"name": name.title(), "email": email, "total": TOTAL, "answers": answers}
 
 
 class Answer(BaseModel):
